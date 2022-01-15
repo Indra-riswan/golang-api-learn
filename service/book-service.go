@@ -60,7 +60,7 @@ func (s *bookservice) AllBook() []models.Book {
 
 func (s *bookservice) AlllowEdited(userID string, bookID uint) bool {
 	book := s.repository.FindBookById(bookID)
-	id := fmt.Sprintf("%v", book.ID)
+	id := fmt.Sprintf("%v", book.UserID)
 
 	return userID == id
 

@@ -59,7 +59,9 @@ func (h *authhandler) Register(ctx *gin.Context) {
 		return
 	} else {
 		usercreate := h.authservice.CreateUser(registerDto)
-		token := h.jwtservice.GenerateToken(strconv.FormatUint(uint64(usercreate.ID), 10))
+		id := strconv.FormatUint(uint64(usercreate.ID), 10)
+		token := h.jwtservice.GenerateToken(id)
+		// token := h.jwtservice.GenerateToken(strconv.FormatUint(uint64(usercreate.ID), 10))
 		usercreate.Token = token
 		respons := helper.BuildRespons(true, "Ok!", usercreate)
 		ctx.JSON(http.StatusCreated, respons)
