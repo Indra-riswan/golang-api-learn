@@ -62,7 +62,7 @@ func (r *userrepository) VerifyCredintial(email string, password string) interfa
 }
 func (r *userrepository) FaindByEmail(email string) models.User {
 	var user models.User
-	r.db.Where("emial = ?", email).Take(&user)
+	r.db.Where("email = ?", email).Take(&user)
 	return user
 
 }
