@@ -26,14 +26,14 @@ func NewAuthHandler(auth service.ServiceAuth, jwt service.JwtService) *authhandl
 }
 
 func (h *authhandler) Login(ctx *gin.Context) {
-	var LoginDto dto.DTOLogin
-	errDto := ctx.ShouldBindJSON(&LoginDto)
+	var loginDto dto.DTOLogin
+	errDto := ctx.ShouldBindJSON(&loginDto)
 	if errDto != nil {
 		respons := helper.BuildErrorRespons("Failed Login", errDto.Error(), helper.EmptyObj{})
 		ctx.JSON(http.StatusBadRequest, respons)
 		return
 	}
-	authservice := h.authservice.VerifyCrendential(LoginDto.Email, LoginDto.Password)
+	authservice := h.authservice.VerifyCrendential(loginDto.Email, loginDto.Password)
 	if v, ok := authservice.(models.User); ok {
 		generatetoken := h.jwtservice.GenerateToken(strconv.FormatUint(uint64(v.ID), 10))
 		v.Token = generatetoken

@@ -41,7 +41,7 @@ func ComparePassword(hashedPassword, plainpassword []byte) bool {
 	p := []byte(hashedPassword)
 	err := bcrypt.CompareHashAndPassword(p, plainpassword)
 	if err != nil {
-		fmt.Println("Incorrect Password")
+		fmt.Println("Incorrect Password", err.Error())
 		return false
 	}
 	return true
